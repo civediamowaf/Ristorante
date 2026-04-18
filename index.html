@@ -1,0 +1,2332 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ci Vediamo – Ristorante & Pizzeria Warendorf</title>
+  <meta name="description" content="Authentische italienische Küche in Warendorf. Ristorante & Pizzeria Ci Vediamo – handgemachte Pasta, Steinofenpizza und mehr. Täglich ab 17 Uhr geöffnet." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ===========================    
+       VARIABLES & RESET
+    =========================== */
+    :root {
+      --cream: #f7f3ee;
+      --warm-white: #faf8f5;
+      --dark: #1a1612;
+      --charcoal: #2e2820;
+      --gold: #b8975a;
+      --gold-light: #d4b07a;
+      --terracotta: #8b4a3a;
+      --sage: #6b7c5e;
+      --text: #3a3028;
+      --text-light: #7a6e64;
+      --border: rgba(184,151,90,0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ===========================
+       NAVIGATION
+    =========================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+    }
+
+    nav.scrolled {
+      background: rgba(247,243,238,0.97);
+      backdrop-filter: blur(8px);
+      padding: 0.7rem 2.5rem;
+      box-shadow: 0 2px 24px rgba(26,22,18,0.08);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav-logo-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark);
+    }
+
+    .nav-logo-badge svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .nav-logo-text span:first-child {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--dark);
+      letter-spacing: 0.03em;
+    }
+
+    .nav-logo-text span:last-child {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dark);
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      padding: 0.5rem 1.3rem;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 1.5px;
+      background: var(--dark);
+      transition: all 0.3s;
+    }
+
+    /* ===========================
+       HERO
+    =========================== */
+    #hero {
+      height: 100vh;
+      min-height: 600px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--dark);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, rgba(26,22,18,0.65) 0%, rgba(26,22,18,0.3) 60%, rgba(139,74,58,0.2) 100%),
+        url('images/hero.jpg') center/cover no-repeat;
+    }
+
+    /* Decorative grain overlay */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.3s forwards;
+    }
+
+    .hero-logo-oval {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 2px solid rgba(184,151,90,0.6);
+      margin: 0 auto 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(26,22,18,0.5);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s forwards;
+    }
+
+    .hero-logo-oval .small {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .hero-logo-oval .big {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.7rem;
+      color: #fff;
+      line-height: 1;
+      margin: 3px 0;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.7s forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(255,255,255,0.75);
+      margin-top: 1.2rem;
+      letter-spacing: 0.06em;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.9s forwards;
+    }
+
+    .hero-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.8rem auto;
+      opacity: 0;
+      animation: fadeUp 0.9s 1.1s forwards;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s 1.3s forwards;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      background: var(--gold);
+      color: #fff;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      color: #fff;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .btn-outline:hover { border-color: var(--gold); background: rgba(184,151,90,0.15); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1s 2s forwards;
+    }
+
+    .hero-scroll span {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ===========================
+       SECTION SHARED STYLES
+    =========================== */
+    section { padding: 6rem 2rem; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      color: var(--dark);
+      line-height: 1.2;
+    }
+
+    .section-title em { font-style: italic; color: var(--terracotta); }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .ornament-line { width: 50px; height: 1px; background: var(--border); }
+
+    .ornament-diamond {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* ===========================
+       INTRO / ABOUT
+    =========================== */
+    #about {
+      background: var(--warm-white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .about-text p {
+      font-size: 1.2rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+
+    .about-text p:first-child::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      float: left;
+      line-height: 0.85;
+      margin-right: 0.12em;
+      color: var(--gold);
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-image-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .about-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .about-image-frame:hover img { transform: scale(1.04); }
+
+    .about-image-accent {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 120px;
+      height: 120px;
+      border: 2px solid var(--gold);
+      z-index: -1;
+    }
+
+    .about-facts {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .fact {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .fact-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .fact-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-top: 0.25rem;
+    }
+
+    /* ===========================
+       OPENING HOURS
+    =========================== */
+    #hours {
+      background: var(--dark);
+      padding: 5rem 2rem;
+    }
+
+    #hours .section-title { color: #fff; }
+    #hours .section-label { color: var(--gold); }
+    #hours .ornament-line { background: rgba(184,151,90,0.3); }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .hours-card {
+      border: 1px solid rgba(184,151,90,0.2);
+      padding: 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .hours-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transition: transform 0.4s;
+    }
+
+    .hours-card:hover::before { transform: scaleX(1); }
+    .hours-card:hover { border-color: rgba(184,151,90,0.5); }
+
+    .hours-days {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .hours-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .hours-note {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-top: 0.6rem;
+    }
+
+    .hours-closed .hours-time {
+      font-size: 1.6rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .contact-bar {
+      max-width: 700px;
+      margin: 3rem auto 0;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(184,151,90,0.15);
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .contact-item-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .contact-item-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .contact-item-value a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-item-value a:hover { color: var(--gold); }
+
+    /* ===========================
+       SPEISEKARTE
+    =========================== */
+    #speisekarte {
+      background: var(--cream);
+    }
+
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .menu-tab {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      padding: 0.9rem 1.6rem;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.3s;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+
+    .menu-tab:hover { color: var(--dark); }
+
+    .menu-tab.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    .menu-panel { display: none; max-width: 800px; margin: 0 auto; }
+    .menu-panel.active { display: block; }
+
+    .menu-category {
+      margin-bottom: 3rem;
+    }
+
+    .menu-cat-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--terracotta);
+      margin-bottom: 0.3rem;
+    }
+
+    .menu-cat-sub {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 1.2rem;
+    }
+
+    .menu-divider { height: 1px; background: var(--border); margin-bottom: 1.5rem; }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px dashed rgba(184,151,90,0.12);
+      transition: background 0.2s;
+    }
+
+    .menu-item:last-child { border-bottom: none; }
+
+    .menu-item-left { flex: 1; }
+
+    .menu-item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .menu-item-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    .menu-item-price {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    /* ===========================
+       GALERIE
+    =========================== */
+    #galerie {
+      background: var(--warm-white);
+      padding-bottom: 5rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 12px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .gallery-item:nth-child(1) { grid-column: span 2; aspect-ratio: 16/9; }
+    .gallery-item:nth-child(2) { aspect-ratio: 1; }
+    .gallery-item:nth-child(3) { aspect-ratio: 1; }
+    .gallery-item:nth-child(4) { aspect-ratio: 4/3; }
+    .gallery-item:nth-child(5) { grid-column: span 2; aspect-ratio: 16/8; }
+    .gallery-item:nth-child(6) { aspect-ratio: 3/4; }
+    .gallery-item:nth-child(7) { aspect-ratio: 3/4; }
+    .gallery-item:nth-child(8) { aspect-ratio: 4/3; }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: block;
+    }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(26,22,18,0);
+      transition: background 0.4s;
+    }
+
+    .gallery-item:hover::after { background: rgba(26,22,18,0.15); }
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(26,22,18,0.95);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: color 0.2s;
+    }
+
+    .lightbox-close:hover { color: #fff; }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 1rem;
+      transition: color 0.2s;
+    }
+
+    .lightbox-nav:hover { color: var(--gold); }
+    .lightbox-prev { left: 1rem; }
+    .lightbox-next { right: 1rem; }
+
+    /* ===========================
+       ANFAHRT / MAP
+    =========================== */
+    #anfahrt {
+      background: var(--dark);
+      padding: 5rem 2rem;
+    }
+
+    #anfahrt .section-title { color: #fff; }
+    #anfahrt .section-label { color: var(--gold); }
+    #anfahrt .ornament-line { background: rgba(184,151,90,0.3); }
+
+    .anfahrt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .anfahrt-info { }
+
+    .anfahrt-block {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(184,151,90,0.15);
+    }
+
+    .anfahrt-block:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .anfahrt-block-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.7rem;
+    }
+
+    .anfahrt-block-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+    }
+
+    .anfahrt-block-text a {
+      color: var(--gold-light);
+      text-decoration: none;
+    }
+
+    .anfahrt-block-text a:hover { text-decoration: underline; }
+
+    .map-wrapper {
+      border: 1px solid rgba(184,151,90,0.2);
+      overflow: hidden;
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 380px;
+      border: none;
+      display: block;
+      filter: grayscale(30%) contrast(1.1);
+    }
+
+    .directions-btn {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+      padding: 0.8rem 1.5rem;
+      border: 1px solid rgba(184,151,90,0.4);
+      color: var(--gold-light);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .directions-btn:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+    /* ===========================
+       MENU / 2-Personen Menü
+    =========================== */
+    .menu-highlight {
+      background: linear-gradient(135deg, var(--terracotta) 0%, #6b3028 100%);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 2.5rem;
+      text-align: center;
+      max-width: 600px;
+      margin: 3rem auto 0;
+    }
+
+    .menu-highlight h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .menu-highlight p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .menu-highlight .price-big {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--gold-light);
+    }
+
+    .menu-highlight .price-sub {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+    }
+
+    /* ===========================
+       RESERVIERUNG CTA
+    =========================== */
+    #reservierung {
+      background: var(--cream);
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+
+    .reservierung-inner {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .reservierung-inner p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-light);
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .phone-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .phone-link:hover { color: var(--gold); }
+
+    .phone-icon {
+      width: 44px;
+      height: 44px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+/* ===========================
+       FOOTER
+    =========================== */
+    footer {
+      background: var(--charcoal);
+      padding: 4rem 2rem 2rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      max-width: 1000px;
+      margin: 0 auto 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(184,151,90,0.15);
+    }
+
+    .footer-brand {}
+
+    .footer-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .footer-brand-sub {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-brand-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+    }
+
+    .footer-col-title {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .footer-col ul li a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--gold-light); }
+
+    .footer-bottom {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-copy {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-legal a {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-legal a:hover { color: var(--gold); }
+
+    /* ===========================
+       MODAL (Impressum/Datenschutz)
+    =========================== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(26,22,18,0.85);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: var(--warm-white);
+      max-width: 720px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 3rem;
+      position: relative;
+    }
+
+    .modal-box h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--dark);
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    .modal-box p, .modal-box li {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-box ul { padding-left: 1.5rem; }
+
+    .modal-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 1rem 0;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.5rem;
+      font-size: 1.4rem;
+      color: var(--text-light);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: 'Jost', sans-serif;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover { color: var(--dark); }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-image { order: -1; }
+      .about-image-frame { aspect-ratio: 16/9; }
+      .about-image-accent { display: none; }
+      .hours-grid { grid-template-columns: 1fr; }
+      .anfahrt-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:nth-child(1) { grid-column: span 2; }
+      .gallery-item:nth-child(5) { grid-column: span 2; }
+      .gallery-item { aspect-ratio: 4/3 !important; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.2rem; }
+      nav.scrolled { padding: 0.7rem 1.2rem; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.mobile-open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: var(--warm-white);
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        z-index: 99;
+      }
+      .nav-links.mobile-open a {
+        font-size: 1.2rem;
+        letter-spacing: 0.15em;
+      }
+      .footer-top { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item { grid-column: span 1 !important; aspect-ratio: 4/3 !important; }
+      .menu-tabs { gap: 0; }
+      .menu-tab { padding: 0.7rem 0.9rem; font-size: 0.62rem; }
+      .modal-box { padding: 2rem 1.5rem; }
+      .anfahrt-grid { grid-template-columns: 1fr; }
+      section { padding: 4rem 1.2rem; }
+    }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-badge">
+      <!-- Inline Oval Logo SVG -->
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="30" cy="30" rx="28" ry="28" stroke="#b8975a" stroke-width="1.2"/>
+        <text x="30" y="26" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="7" fill="rgba(255,255,255,0.6)">Ristorante</text>
+        <text x="30" y="37" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="10" fill="white">Ci Vediamo</text>
+        <text x="30" y="47" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="7" fill="rgba(255,255,255,0.6)">Pizzeria</text>
+      </svg>
+    </div>
+    <div class="nav-logo-text">
+      <span>Ci Vediamo</span>
+      <span>Ristorante &amp; Pizzeria</span>
+    </div>
+  </a>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about">Über uns</a></li>
+    <li><a href="#speisekarte">Speisekarte</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#hours">Öffnungszeiten</a></li>
+    <li><a href="#anfahrt">Anfahrt</a></li>
+  </ul>
+
+  <a href="tel:025814604087" class="nav-cta">Reservieren</a>
+
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Ristorante &amp; Pizzeria · Warendorf</p>
+
+    <div class="hero-logo-oval">
+      <span class="small">Ristorante</span>
+      <span class="big">Ci Vediamo</span>
+      <span class="small">Pizzeria</span>
+    </div>
+
+    <h1 class="hero-title">Authentisch <em>italienisch</em><br>mitten in Warendorf</h1>
+    <p class="hero-sub">Handgemachte Pasta · Steinofenpizza · Herzliche Gastfreundschaft</p>
+    <div class="hero-divider"></div>
+    <div class="hero-buttons">
+      <a href="#speisekarte" class="btn-primary">Speisekarte entdecken</a>
+      <a href="#anfahrt" class="btn-outline">Zum Restaurant</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Entdecken</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image">
+        <div class="about-image-frame">
+          <img src="images/innen1.jpg" alt="Innenbereich Ci Vediamo" loading="lazy" />
+        </div>
+        <div class="about-image-accent"></div>
+      </div>
+
+      <div class="about-text reveal">
+        <span class="section-label">Il nostro ristorante</span>
+        <h2 class="section-title" style="text-align:left; margin-bottom:1.5rem;">Eine Reise nach <em>Italien</em> – mitten in Westfalen</h2>
+        <p>Im Ci Vediamo erwartet Sie authentische italienische Küche mit echtem Herzblut. Von handgemachter Pasta bis zur knusprigen Steinofenpizza – wir kochen mit Zutaten, die für sich sprechen.</p>
+        <p>Unser gemütliches Ambiente, der sonnige Biergarten und die persönliche Betreuung machen jeden Besuch zu einem besonderen Erlebnis. <em>Ci vediamo</em> – auf Wiedersehen, das versprechen wir.</p>
+
+        <div class="about-facts">
+          <div class="fact">
+            <span class="fact-num">100%</span>
+            <span class="fact-label">Hausgemacht</span>
+          </div>
+          <div class="fact">
+            <span class="fact-num">20+</span>
+            <span class="fact-label">Pizzasorten</span>
+          </div>
+          <div class="fact">
+            <span class="fact-num">4,5★</span>
+            <span class="fact-label">Google Rating</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ÖFFNUNGSZEITEN ===== -->
+<section id="hours">
+  <div class="section-header reveal">
+    <span class="section-label">Orari di Apertura</span>
+    <h2 class="section-title">Öffnungszeiten</h2>
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line"></div>
+    </div>
+  </div>
+
+  <div class="hours-grid reveal">
+    <div class="hours-card">
+      <div class="hours-days">Mittwoch – Montag</div>
+      <div class="hours-time">17:00 – 22:30</div>
+      <div class="hours-note">Küche bis 22 Uhr</div>
+    </div>
+    <div class="hours-card hours-closed">
+      <div class="hours-days">Dienstag</div>
+      <div class="hours-time">Ruhetag</div>
+      <div class="hours-note">Geschlossen</div>
+    </div>
+  </div>
+
+  <div class="contact-bar reveal">
+    <div class="contact-item">
+      <span class="contact-item-label">Telefon</span>
+      <span class="contact-item-value"><a href="tel:025814604087">02581 4604087</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-item-label">Adresse</span>
+      <span class="contact-item-value">Dreibrückenstraße 10, 48231 Warendorf</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-item-label">Reservierung</span>
+      <span class="contact-item-value"><a href="tel:025814604087">Telefonisch</a></span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPEISEKARTE ===== -->
+<section id="speisekarte">
+  <div class="section-header reveal">
+    <span class="section-label">La nostra Cucina</span>
+    <h2 class="section-title">Speise<em>karte</em></h2>
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line"></div>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="menu-tabs" role="tablist">
+    <button class="menu-tab active" onclick="switchTab('antipasti')">Antipasti</button>
+    <button class="menu-tab" onclick="switchTab('pizza')">Pizza</button>
+    <button class="menu-tab" onclick="switchTab('pasta')">Pasta &amp; Insalate</button>
+    <button class="menu-tab" onclick="switchTab('grill')">Grill</button>
+    <button class="menu-tab" onclick="switchTab('dessert')">Dessert &amp; Café</button>
+    <button class="menu-tab" onclick="switchTab('getraenke')">Getränke</button>
+  </div>
+
+  <!-- ANTIPASTI -->
+  <div class="menu-panel active" id="panel-antipasti">
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Antipasti</h3>
+      <p class="menu-cat-sub">Gemischte Vorspeisen</p>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Antipasto Misto</div>
+          <div class="menu-item-desc">Gemischte Vorspeiseplatte (für 2 Personen)</div>
+        </div>
+        <div class="menu-item-price">15,90 / 29,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Insalata Di Mare</div>
+          <div class="menu-item-desc">Meeresfrüchtesalat</div>
+        </div>
+        <div class="menu-item-price">15,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Insalata Caprese</div>
+          <div class="menu-item-desc">Tomaten und Mozzarella</div>
+        </div>
+        <div class="menu-item-price">13,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Carpaccio di Manzo</div>
+          <div class="menu-item-desc">Dünn geschnittenes Rinderfilet mit Rucola und gerasp. Parmesan</div>
+        </div>
+        <div class="menu-item-price">14,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Vitello Tonnato</div>
+          <div class="menu-item-desc">Kalbfleisch mit Thunfischsauce</div>
+        </div>
+        <div class="menu-item-price">14,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Parma e Melone</div>
+          <div class="menu-item-desc">Parmaschinken mit Melone</div>
+        </div>
+        <div class="menu-item-price">14,50</div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Bruschetta &amp; Suppe</h3>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Bruschetta Classica</div>
+          <div class="menu-item-desc">Geröstetes Brot mit Tomaten und Knoblauch</div>
+        </div>
+        <div class="menu-item-price">7,50</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Bruschetta Sorpresa</div>
+          <div class="menu-item-desc">Lassen Sie sich überraschen</div>
+        </div>
+        <div class="menu-item-price">8,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Zuppa di Pomodoro</div>
+          <div class="menu-item-desc">Tomatensuppe</div>
+        </div>
+        <div class="menu-item-price">6,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Minestrone</div>
+          <div class="menu-item-desc">Gemüsesuppe</div>
+        </div>
+        <div class="menu-item-price">7,50</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIZZA -->
+  <div class="menu-panel" id="panel-pizza">
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Pizze Rosse</h3>
+      <p class="menu-cat-sub">Mit Tomatensauce</p>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Pizza Pane</div>
+          <div class="menu-item-desc">Pizza Brot mit Olivenöl, Salz und Rosmarin</div>
+        </div>
+        <div class="menu-item-price">3,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Margherita</div>
+          <div class="menu-item-desc">Mit Tomatensauce und Fior di Latte</div>
+        </div>
+        <div class="menu-item-price">10,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Marinara</div>
+          <div class="menu-item-desc">Fior di Latte, Sardellen und Oregano</div>
+        </div>
+        <div class="menu-item-price">12,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Salami</div>
+          <div class="menu-item-desc">Fior di Latte und Salami</div>
+        </div>
+        <div class="menu-item-price">12,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Prosciutto e Funghi</div>
+          <div class="menu-item-desc">Fior di Latte, Schinken und Champignons</div>
+        </div>
+        <div class="menu-item-price">14,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Paprika</div>
+          <div class="menu-item-desc">Fior di Latte und frische Paprika</div>
+        </div>
+        <div class="menu-item-price">12,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Capricciosa</div>
+          <div class="menu-item-desc">Fior di Latte, Schinken, Oliven, Champignons und Artischocken</div>
+        </div>
+        <div class="menu-item-price">15,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Tonno e Cipolla</div>
+          <div class="menu-item-desc">Fior di Latte, Thunfisch und Zwiebeln</div>
+        </div>
+        <div class="menu-item-price">14,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">4 Formaggi</div>
+          <div class="menu-item-desc">Fior di Latte und vier verschiedene Käsesorten</div>
+        </div>
+        <div class="menu-item-price">15,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Ortolana</div>
+          <div class="menu-item-desc">Fior di Latte und frische verschiedene Gemüse</div>
+        </div>
+        <div class="menu-item-price">16,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Calzone</div>
+          <div class="menu-item-desc">Fior di Latte, Champignons, Thunfisch und Schinken</div>
+        </div>
+        <div class="menu-item-price">15,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Parma</div>
+          <div class="menu-item-desc">Fior di Latte, Parmaschinken, Rucola und Parmesanraspeln</div>
+        </div>
+        <div class="menu-item-price">17,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Prosciutto</div>
+          <div class="menu-item-desc">Fior di Latte und Schinken</div>
+        </div>
+        <div class="menu-item-price">12,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Diavola</div>
+          <div class="menu-item-desc">Fior di Latte, Nduja, Paprika und Zwiebeln</div>
+        </div>
+        <div class="menu-item-price">14,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Peppi di Cruciani</div>
+          <div class="menu-item-desc">Fior di Latte, Spinat, rote Paprika und Zwiebeln</div>
+        </div>
+        <div class="menu-item-price">15,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">A Scandinaba</div>
+          <div class="menu-item-desc">Fior di Latte, Schinken, Champignons, Artischocken und Thunfisch</div>
+        </div>
+        <div class="menu-item-price">16,50</div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Pizze Bianche</h3>
+      <p class="menu-cat-sub">Ohne Tomatensauce</p>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Rita</div>
+          <div class="menu-item-desc">Büffel Mozzarella, Datteltomaten und Rucola</div>
+        </div>
+        <div class="menu-item-price">15,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Formaggio e Carne</div>
+          <div class="menu-item-desc">Fior di Latte, Gorgonzolakäse, Parmaschinken und Walnüsse</div>
+        </div>
+        <div class="menu-item-price">17,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Primavera</div>
+          <div class="menu-item-desc">Fior di Latte, Mortadella, Burrata und Pistazien Pesto</div>
+        </div>
+        <div class="menu-item-price">16,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Gorgonzola Pere e Noci</div>
+          <div class="menu-item-desc">Fior di Latte, Gorgonzolakäse und Walnüsse</div>
+        </div>
+        <div class="menu-item-price">15,50</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Al Vitello</div>
+          <div class="menu-item-desc">Fior di Latte und Kalbsfleisch mit Thunfischsauce</div>
+        </div>
+        <div class="menu-item-price">17,50</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASTA & INSALATE -->
+  <div class="menu-panel" id="panel-pasta">
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Insalate</h3>
+      <p class="menu-cat-sub">Frische Salate</p>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Insalata Mista</div>
+          <div class="menu-item-desc">Gemischter Salat mit Tomaten, Gurken, Mais und Oliven</div>
+        </div>
+        <div class="menu-item-price">10,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Insalata Francesca</div>
+          <div class="menu-item-desc">Gemischter Salat mit Tomaten, Gurken, Mais, Oliven</div>
+        </div>
+        <div class="menu-item-price">13,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Insalata di Salmone</div>
+          <div class="menu-item-desc">Gemischter Salat mit Tomaten, Gurken, Käse und frischen gesch. Lachsfilets</div>
+        </div>
+        <div class="menu-item-price">14,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Insalata di Pollo</div>
+          <div class="menu-item-desc">Gemischter Salat mit Tomaten, Gurken, Garten-Zwiebeln und frisch gesch. Hähnchenbruststreifen</div>
+        </div>
+        <div class="menu-item-price">15,90</div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Pasta</h3>
+      <p class="menu-cat-sub">Frische handgemachte Nudeln</p>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Spaghetti Carbonara</div>
+          <div class="menu-item-desc">Original Italienisch</div>
+        </div>
+        <div class="menu-item-price">14,00</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Spaghetti Bolognese</div>
+          <div class="menu-item-desc">Mit Bolognesesauce</div>
+        </div>
+        <div class="menu-item-price">12,00</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Spaghetti Aglio Olio e Peperoncino</div>
+          <div class="menu-item-desc">Mit Knoblauch, Olivenöl und scharfe Peperoni</div>
+        </div>
+        <div class="menu-item-price">13,00</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Linguine al Frutti di Mare</div>
+          <div class="menu-item-desc">Dünne Bandnudeln mit Meeresfrüchten</div>
+        </div>
+        <div class="menu-item-price">19,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Linguine ai Gamberoni</div>
+          <div class="menu-item-desc">Dünne Bandnudeln mit Riesengarnelen</div>
+        </div>
+        <div class="menu-item-price">21,90</div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Überbackene Nudeln</h3>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Lasagne</div>
+          <div class="menu-item-desc">Mit Bolognese, Champignons, Schinken u. Béchamelsauce u. Bechamelcreme</div>
+        </div>
+        <div class="menu-item-price">19,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Cannelloni Ricotta e Spinaci</div>
+          <div class="menu-item-desc">Gefüllte Nudelrollen mit Ricotta und Spinat</div>
+        </div>
+        <div class="menu-item-price">10,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Gnocchi Ricotta e Spinaci</div>
+          <div class="menu-item-desc">Gnocchi mit Ricotta und Spinat in Bechamelsauce</div>
+        </div>
+        <div class="menu-item-price">10,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Cannelloni Bolognese Carne</div>
+          <div class="menu-item-desc">Gefüllte Nudelrollen mit Bolognese</div>
+        </div>
+        <div class="menu-item-price">10,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Gnocchi Bolognese Carne</div>
+          <div class="menu-item-desc">Gnocchi mit Thunfischragout in Tomatensauce</div>
+        </div>
+        <div class="menu-item-price">10,90</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRILL -->
+  <div class="menu-panel" id="panel-grill">
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Pesce – Fisch</h3>
+      <p class="menu-cat-sub">Vom Grill</p>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Grigliata mista di Pesce</div>
+          <div class="menu-item-desc">Gemischter Fischteller vom Grill</div>
+        </div>
+        <div class="menu-item-price">44,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Gamberon alla Griglia</div>
+          <div class="menu-item-desc">Riesengarnelen vom Grill</div>
+        </div>
+        <div class="menu-item-price">31,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Branzino al vino bianco</div>
+          <div class="menu-item-desc">Wolfsbarsch in Weißweinsauce</div>
+        </div>
+        <div class="menu-item-price">29,80</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Calamari Lucernese</div>
+          <div class="menu-item-desc">Tintenfisch mit Kapern, Oliven und Datteltomaten</div>
+        </div>
+        <div class="menu-item-price">29,90</div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Carne – Fleisch</h3>
+      <p class="menu-cat-sub">Unsere Fleisch- und Fischgerichte servieren wir mit Tagesbeilage</p>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Grigliata mista di Carne</div>
+          <div class="menu-item-desc">Gemischter Fleischteller vom Grill</div>
+        </div>
+        <div class="menu-item-price">34,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Filetto di Manzo al Balsamico</div>
+          <div class="menu-item-desc">Black Angus Argentinisches Rinderfilet mit Balsamicosauce</div>
+        </div>
+        <div class="menu-item-price">35,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Entrecôte alla Griglia</div>
+          <div class="menu-item-desc">Argentinisches Entrecôte vom Grill</div>
+        </div>
+        <div class="menu-item-price">29,90</div>
+      </div>
+    </div>
+
+    <!-- Menü für 2 -->
+    <div class="menu-highlight">
+      <h3>Menü für Zwei Personen</h3>
+      <p>Genießen Sie unser exklusives Abendmenü: Antipasto · Pasta oder Fisch · Dessert – inklusive einer Flasche Hauswein (0,75l) oder Wasser</p>
+      <div class="price-big">90,00 €</div>
+      <div class="price-sub">Pro Menü für 2 Personen</div>
+    </div>
+  </div>
+
+  <!-- DESSERT -->
+  <div class="menu-panel" id="panel-dessert">
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Dolci – Dessert</h3>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Tiramisù – Der Klassiker</div>
+          <div class="menu-item-desc">Hausgemachtes Tiramisù mit einem Zabaioneck</div>
+        </div>
+        <div class="menu-item-price">6,50</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Tartufo Nero</div>
+          <div class="menu-item-desc">Klassisches Eisbällchen umhüllt von handgeformten Haselnuss-Schokoscreme und dick mit Kakaopulver bestaubt</div>
+        </div>
+        <div class="menu-item-price">6,50</div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Warme Getränke</h3>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Espresso</div></div>
+        <div class="menu-item-price">2,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Doppio Espresso</div></div>
+        <div class="menu-item-price">4,00</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Caffè Crema</div></div>
+        <div class="menu-item-price">2,90</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Cappuccino</div></div>
+        <div class="menu-item-price">3,50</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Latte Macchiato</div></div>
+        <div class="menu-item-price">4,00</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Tee verschiedene Sorten</div></div>
+        <div class="menu-item-price">2,80</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GETRÄNKE -->
+  <div class="menu-panel" id="panel-getraenke">
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Aperitif</h3>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Aperol Spritz</div></div>
+        <div class="menu-item-price">7,95</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Limoncello Spritz</div></div>
+        <div class="menu-item-price">7,85</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Lillet</div></div>
+        <div class="menu-item-price">7,85</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Campari Spriz</div></div>
+        <div class="menu-item-price">7,85</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Hugo</div></div>
+        <div class="menu-item-price">7,50</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Prosecco</div></div>
+        <div class="menu-item-price">4,95</div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Alkoholfreie Getränke</h3>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Wasser Morelli heiß oder keiß</div><div class="menu-item-desc">0,75 l</div></div>
+        <div class="menu-item-price">6,95</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Wasser Morelli heiß oder leise</div><div class="menu-item-desc">0,25 l</div></div>
+        <div class="menu-item-price">3,25</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Coca Cola / Fanta / Sprite / Cola Zero</div><div class="menu-item-desc">0,4 l</div></div>
+        <div class="menu-item-price">3,95</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Apfelshorle</div><div class="menu-item-desc">0,3 l</div></div>
+        <div class="menu-item-price">3,25</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Rhabarberschorle</div><div class="menu-item-desc">0,33 l</div></div>
+        <div class="menu-item-price">3,95</div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Weine – Offene Weine</h3>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Hauswein Rot / Weiß</div><div class="menu-item-desc">0,25 l</div></div>
+        <div class="menu-item-price">6,70</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Lugana</div><div class="menu-item-desc">0,2 l</div></div>
+        <div class="menu-item-price">6,70</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Pinot Ramato</div><div class="menu-item-desc">0,2 l</div></div>
+        <div class="menu-item-price">7,50</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Chardonnay</div><div class="menu-item-desc">Flasche 0,75 l</div></div>
+        <div class="menu-item-price">17,50</div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Spirituosen</h3>
+      <div class="menu-divider"></div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Sambuca</div><div class="menu-item-desc">0,2 l</div></div>
+        <div class="menu-item-price">4,00</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Amaretto</div><div class="menu-item-desc">0,4 l</div></div>
+        <div class="menu-item-price">4,00</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Doppio</div><div class="menu-item-desc">0,2 l</div></div>
+        <div class="menu-item-price">4,00</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Limoncello</div><div class="menu-item-desc">0,4 l</div></div>
+        <div class="menu-item-price">4,00</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Ramazzotti</div><div class="menu-item-desc">0,4 l</div></div>
+        <div class="menu-item-price">4,00</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Averna</div><div class="menu-item-desc">0,4 l</div></div>
+        <div class="menu-item-price">4,00</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Amaro del Capo</div><div class="menu-item-desc">0,4 l</div></div>
+        <div class="menu-item-price">4,00</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-left"><div class="menu-item-name">Grappa Casa</div><div class="menu-item-desc">0,4 l</div></div>
+        <div class="menu-item-price">4,00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GALERIE ===== -->
+<section id="galerie">
+  <div class="section-header reveal">
+    <span class="section-label">Impressioni</span>
+    <h2 class="section-title">Galerie</h2>
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line"></div>
+    </div>
+  </div>
+
+  <div class="gallery-grid reveal">
+    <div class="gallery-item" onclick="openLightbox(0)">
+      <img src="images/galerie1.jpg" alt="Ci Vediamo Atmosphäre" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(1)">
+      <img src="images/galerie2.jpg" alt="Innenbereich" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(2)">
+      <img src="images/galerie3.jpg" alt="Biergarten" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(3)">
+      <img src="images/galerie4.jpg" alt="Tisch gedeckt" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(4)">
+      <img src="images/galerie5.jpg" alt="Die Inhaber" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(5)">
+      <img src="images/galerie6.jpg" alt="Pizza aus dem Steinofen" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(6)">
+      <img src="images/galerie7.jpg" alt="Pasta handgemacht" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(7)">
+      <img src="images/galerie8.jpg" alt="Biergarten Sommer" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">&#8592;</button>
+  <img id="lightbox-img" src="" alt="" />
+  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">&#8594;</button>
+</div>
+
+<!-- ===== RESERVIERUNG ===== -->
+<section id="reservierung">
+  <div class="reservierung-inner reveal">
+    <span class="section-label">Prenota un Tavolo</span>
+    <h2 class="section-title" style="margin-bottom:1.5rem;">Tisch <em>reservieren</em></h2>
+    <p>Für besondere Anlässe oder einfach einen entspannten Abend – wir freuen uns auf Ihren Anruf. Reservierungen nehmen wir gerne telefonisch entgegen.</p>
+    <a href="tel:025814604087" class="phone-link">
+      <div class="phone-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .99h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.79a16 16 0 006.12 6.12l1.07-1.16a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+        </svg>
+      </div>
+      02581 4604087
+    </a>
+  </div>
+</section>
+
+<!-- ===== ANFAHRT ===== -->
+<section id="anfahrt">
+  <div class="section-header reveal">
+    <span class="section-label">Come raggiungerci</span>
+    <h2 class="section-title">Anfahrt</h2>
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line"></div>
+    </div>
+  </div>
+
+  <div class="anfahrt-grid reveal">
+    <div class="anfahrt-info">
+      <div class="anfahrt-block">
+        <p class="anfahrt-block-label">Adresse</p>
+        <p class="anfahrt-block-text">
+          Ristorante &amp; Pizzeria Ci Vediamo<br>
+          Dreibrückenstraße 10<br>
+          48231 Warendorf
+        </p>
+      </div>
+      <div class="anfahrt-block">
+        <p class="anfahrt-block-label">Kontakt</p>
+        <p class="anfahrt-block-text">
+          <a href="tel:025814604087">02581 4604087</a>
+        </p>
+      </div>
+      <div class="anfahrt-block">
+        <p class="anfahrt-block-label">Öffnungszeiten</p>
+        <p class="anfahrt-block-text">
+          Mi – Mo: 17:00 – 22:30 Uhr<br>
+          Di: Ruhetag
+        </p>
+      </div>
+      <div class="anfahrt-block">
+        <p class="anfahrt-block-label">Parken</p>
+        <p class="anfahrt-block-text">
+          Parkplätze in der Nähe vorhanden.<br>
+          Anreise per Bahn: Bahnhof Warendorf ca. 5 Min. Fußweg.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="map-wrapper">
+        <iframe
+          title="Ci Vediamo Standort"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2477.5!2d7.9934!3d51.9534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b9f5c3a1234567%3A0x1234567890abcdef!2sDreibr%C3%BCckenstra%C3%9Fe%2010%2C%2048231%20Warendorf!5e0!3m2!1sde!2sde!4v1680000000000!5m2!1sde!2sde"
+          allowfullscreen=""
+          loading="lazy">
+        </iframe>
+      </div>
+      <a
+        href="https://www.google.com/maps/dir/?api=1&destination=Dreibr%C3%BCckenstra%C3%9Fe+10,+48231+Warendorf"
+        target="_blank"
+        rel="noopener"
+        class="directions-btn">
+        Route in Google Maps öffnen →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-brand-name">Ci Vediamo</div>
+      <div class="footer-brand-sub">Ristorante &amp; Pizzeria · Warendorf</div>
+      <p class="footer-brand-text">Authentische italienische Küche mit Herz – seit Jahren ein fester Bestandteil der Warendorfer Gastronomieszene. Wir freuen uns auf Ihren Besuch.</p>
+    </div>
+
+    <div class="footer-col">
+      <p class="footer-col-title">Navigation</p>
+      <ul>
+        <li><a href="#about">Über uns</a></li>
+        <li><a href="#speisekarte">Speisekarte</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#hours">Öffnungszeiten</a></li>
+        <li><a href="#anfahrt">Anfahrt</a></li>
+        <li><a href="#reservierung">Reservierung</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <p class="footer-col-title">Kontakt</p>
+      <ul>
+        <li>Dreibrückenstraße 10</li>
+        <li>48231 Warendorf</li>
+        <li><a href="tel:025814604087">02581 4604087</a></li>
+        <li style="margin-top:0.8rem; color:rgba(255,255,255,0.3);">Mi–Mo 17–22:30 Uhr</li>
+        <li style="color:rgba(255,255,255,0.3);">Di Ruhetag</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">&copy; 2025 Ristorante &amp; Pizzeria Ci Vediamo · Warendorf</p>
+    <div class="footer-legal">
+      <a href="#" onclick="openModal('impressum'); return false;">Impressum</a>
+      <a href="#" onclick="openModal('datenschutz'); return false;">Datenschutz</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== MODAL: IMPRESSUM ===== -->
+<div class="modal-overlay" id="modal-impressum" onclick="closeModalOnBg(event, 'impressum')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('impressum')">✕</button>
+    <h2>Impressum</h2>
+    <div class="modal-divider"></div>
+    <h3>Angaben gemäß § 5 TMG</h3>
+    <p>
+      Ristorante &amp; Pizzeria Ci Vediamo<br>
+      Francesca Laratta<br>
+      Dreibrückenstraße 10<br>
+      48231 Warendorf
+    </p>
+    <h3>Kontakt</h3>
+    <p>
+      Telefon: 02581 4604087<br>
+      E-Mail: civediamofrancesca@gmail.com
+    </p>
+    <h3>Umsatzsteuer-ID</h3>
+    <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>DE814943359</p>
+    <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
+    <p>Francesca Laratta Dreibrückenstraße 10<br>
+      48231 Warendorf </p>
+    <h3>Haftung für Inhalte</h3>
+    <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.</p>
+    <h3>Haftung für Links</h3>
+    <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen.</p>
+    <h3>Urheberrecht</h3>
+    <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+  </div>
+</div>
+
+<!-- ===== MODAL: DATENSCHUTZ ===== -->
+<div class="modal-overlay" id="modal-datenschutz" onclick="closeModalOnBg(event, 'datenschutz')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('datenschutz')">✕</button>
+    <h2>Datenschutzerklärung</h2>
+    <div class="modal-divider"></div>
+    <h3>1. Datenschutz auf einen Blick</h3>
+    <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
+    <h3>2. Verantwortliche Stelle</h3>
+    <p>
+      Ristorante &amp; Pizzeria Ci Vediamo<br>
+      Francesca Laratta<br>
+      Dreibrückenstraße 10, 48231 Warendorf<br>
+      Telefon: 02581 4604087<br>
+      E-Mail: civediamofrancesca@gmail.com
+    </p>
+    <h3>3. Datenerfassung auf dieser Website</h3>
+    <p>Diese Website verwendet keine Cookies, die über technisch notwendige Cookies hinausgehen. Es werden keine personenbezogenen Daten durch Tracking-Tools erfasst.</p>
+    <h3>4. Google Maps</h3>
+    <p>Diese Seite nutzt den Kartendienst Google Maps von Google LLC. Zur Nutzung der Funktionen von Google Maps ist es notwendig, Ihre IP-Adresse zu speichern. Diese Informationen werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Der Anbieter dieser Seite hat keinen Einfluss auf diese Datenübertragung. Mehr Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--gold);">Google Datenschutzerklärung</a>.</p>
+    <h3>5. Ihre Rechte</h3>
+    <p>Sie haben jederzeit das Recht auf Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger sowie den Zweck der Datenverarbeitung sowie ein Recht auf Berichtigung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit an uns wenden.</p>
+    <h3>6. Hosting</h3>
+    <p>Diese Website wird bei GitHub Pages gehostet. Anbieter ist die GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA. Wenn Sie unsere Website besuchen, erfasst GitHub verschiedene Logfiles inklusive Ihrer IP-Adressen. Details entnehmen Sie der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener" style="color:var(--gold);">GitHub Datenschutzerklärung</a>.</p>
+    <h3>7. Aktualität</h3>
+    <p>Stand: 13.04.26. Wir behalten uns vor, diese Datenschutzerklärung bei Bedarf zu aktualisieren.</p>
+  </div>
+</div>
+
+<!-- ===== JS ===== -->
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    const links = document.getElementById('nav-links');
+    links.classList.toggle('mobile-open');
+  }
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('nav-links').classList.remove('mobile-open');
+    });
+  });
+
+  // Menu tabs
+  function switchTab(id) {
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Lightbox
+  const galleryImages = [
+    'images/galerie1.jpg',
+    'images/galerie2.jpg',
+    'images/galerie3.jpg',
+    'images/galerie4.jpg',
+    'images/galerie5.jpg',
+    'images/galerie6.jpg',
+    'images/galerie7.jpg',
+    'images/galerie8.jpg',
+  ];
+  let currentImg = 0;
+
+  function openLightbox(index) {
+    currentImg = index;
+    document.getElementById('lightbox-img').src = galleryImages[index];
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeLightboxOnBg(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  function lightboxNav(dir) {
+    currentImg = (currentImg + dir + galleryImages.length) % galleryImages.length;
+    document.getElementById('lightbox-img').src = galleryImages[currentImg];
+  }
+
+  document.addEventListener('keydown', e => {
+    if (document.getElementById('lightbox').classList.contains('open')) {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lightboxNav(-1);
+      if (e.key === 'ArrowRight') lightboxNav(1);
+    }
+  });
+
+  // Modals
+  function openModal(id) {
+    document.getElementById('modal-' + id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(id) {
+    document.getElementById('modal-' + id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOnBg(e, id) {
+    if (e.target === document.getElementById('modal-' + id)) closeModal(id);
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
